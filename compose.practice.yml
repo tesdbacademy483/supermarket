@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: supermarket-practice-db
+    environment:
+      POSTGRES_DB: supermarket_practice
+      POSTGRES_USER: supermarket_app
+      POSTGRES_PASSWORD: ${SUPERMARKET_DB_PASSWORD:?Set SUPERMARKET_DB_PASSWORD in .env.practice}
+    volumes:
+      - supermarket_practice_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supermarket_app -d supermarket_practice"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: supermarket-practice-backend
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY in .env.practice}
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,backend"
+      DB_NAME: supermarket_practice
+      DB_USER: supermarket_app
+      DB_PASSWORD: ${SUPERMARKET_DB_PASSWORD:?Set SUPERMARKET_DB_PASSWORD in .env.practice}
+      DB_HOST: db
+      DB_PORT: "5432"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    container_name: supermarket-practice-frontend
+    ports:
+      - "127.0.0.1:18081:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  supermarket_practice_pgdata:
