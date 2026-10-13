@@ -1,4 +1,4 @@
-
+```groovy
 pipeline {
     agent any
 
@@ -79,6 +79,18 @@ pipeline {
                         @echo off
                         setlocal
 
+                        echo Restricting temporary private-key permissions...
+
+                        icacls "%SSH_KEY%" /inheritance:r
+                        if errorlevel 1 exit /b 1
+
+                        icacls "%SSH_KEY%" /grant:r "%USERDOMAIN%\\%USERNAME%:R"
+                        if errorlevel 1 exit /b 1
+
+                        echo Checking SSH client...
+                        "C:\\Windows\\System32\\OpenSSH\\ssh.exe" -V
+                        if errorlevel 1 exit /b 1
+
                         echo Connecting to the production server...
 
                         "C:\\Windows\\System32\\OpenSSH\\ssh.exe" ^
@@ -126,3 +138,4 @@ pipeline {
         }
     }
 }
+```
