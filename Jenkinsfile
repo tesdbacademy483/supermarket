@@ -18,7 +18,7 @@ pipeline {
         DEPLOY_PORT = '32007'
         DEPLOY_SCRIPT = '/usr/local/sbin/deploy-supermarket'
         KNOWN_HOSTS = 'C:\\ProgramData\\Jenkins\\.jenkins\\supermarket_known_hosts'
-        DEPLOY_ENABLED = 'false'
+        DEPLOY_ENABLED = 'true'
     }
 
     stages {
