@@ -47,11 +47,12 @@ services:
     restart: unless-stopped
     networks:
       - supermarket_internal
-
+      - supermarket_edge
 volumes:
   supermarket_production_pgdata:
 
 networks:
   supermarket_internal:
     internal: true
-
+  supermarket_edge:
+    driver: bridge
