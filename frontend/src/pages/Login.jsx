@@ -13,27 +13,49 @@ export default function Login() {
 
   async function submit(e) {
     e.preventDefault();
-    setBusy(true); setError("");
+    setBusy(true);
+    setError("");
     try {
       const u = await login(username, password);
-      nav(["OWNER", "MANAGER"].includes(u.role) ? "/dashboard" : "/billing", { replace: true });
-    } catch (err) { setError(err.message); }
-    finally { setBusy(false); }
+      nav(["OWNER", "MANAGER"].includes(u.role) ? "/dashboard" : "/billing", {
+        replace: true,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
     <div className="login">
       <form className="login-card" onSubmit={submit}>
         <h1>{import.meta.env.VITE_SHOP_NAME || "Supermarket"}</h1>
-        <p className="muted">Sign in to start billing.</p>
-        <label className="field"><span>Username</span>
-          <input className="input" autoFocus value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <p className="muted">Sign in To Start Billing.</p>
+        <label className="field">
+          <span>Username</span>
+          <input
+            className="input"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </label>
-        <label className="field"><span>Password</span>
-          <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <label className="field">
+          <span>Password</span>
+          <input
+            className="input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
         <Notice error={error} />
-        <button className="btn primary block" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
+        <button className="btn primary block" disabled={busy}>
+          {busy ? "Signing in…" : "Sign in"}
+        </button>
       </form>
     </div>
   );
