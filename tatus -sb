@@ -1,0 +1,14 @@
+[1mdiff --git a/Jenkinsfile b/Jenkinsfile[m
+[1mindex 0b221c4..eac1eb2 100644[m
+[1m--- a/Jenkinsfile[m
+[1m+++ b/Jenkinsfile[m
+[36m@@ -1,4 +1,3 @@[m
+[31m-```groovy[m
+ pipeline {[m
+     agent any[m
+ [m
+[36m@@ -138,4 +137,3 @@[m [mpipeline {[m
+         }[m
+     }[m
+ }[m
+[31m-```[m

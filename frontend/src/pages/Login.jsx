@@ -31,7 +31,7 @@ export default function Login() {
     <div className="login">
       <form className="login-card" onSubmit={submit}>
         <h1>{import.meta.env.VITE_SHOP_NAME || "Supermarket"}</h1>
-        <p className="muted">Sign in To Start Billing.</p>
+        <p className="muted">sign in to start billing.</p>
         <label className="field">
           <span>Username</span>
           <input

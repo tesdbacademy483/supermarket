@@ -1,0 +1,12 @@
+# Root-level ignore rules for builds launched from this directory.
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+**/node_modules
+**/dist
+**/__pycache__
+**/*.py[cod]
+**/.venv
+**/venv
