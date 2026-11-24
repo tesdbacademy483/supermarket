@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Uses Render's database when DATABASE_URL is set, your local one otherwise
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgres://postgres:postgresgit@127.0.0.1:5432/supermarket"
+        default="postgresql://supermarket_owner:npg_sAzJ3xZjfC5p@ep-fancy-field-bi464ikp.c-5.ap-southeast-1.aws.neon.tech/supermarket?sslmode=require&channel_binding=require",
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 
