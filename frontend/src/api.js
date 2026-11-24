@@ -1,5 +1,5 @@
 // Small fetch wrapper for the Django REST API.
-const BASE = import.meta.env.VITE_API_URL || "/api";
+const BASE = (import.meta.env.VITE_API_URL || "/api").replace(/\/+$/, "");
 
 export const getToken = () => localStorage.getItem("token");
 
