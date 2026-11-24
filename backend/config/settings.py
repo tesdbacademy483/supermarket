@@ -29,7 +29,7 @@ DATABASES = {
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'practice-only-change-this-key')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '0y2t8v-tfmm53#3p3+wj%5k%the4@wttp(*q8*$t^aaoi9%2j7')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
