@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# Uses Render's database when DATABASE_URL is set, your local one otherwise
-DATABASES = {
-    "default": dj_database_url.config(
-        default="postgresql://supermarket_owner:npg_sAzJ3xZjfC5p@ep-fancy-field-bi464ikp.c-5.ap-southeast-1.aws.neon.tech/supermarket?sslmode=require&channel_binding=require",
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# # Uses Render's database when DATABASE_URL is set, your local one otherwise
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default="postgresql://supermarket_owner:npg_sAzJ3xZjfC5p@ep-fancy-field-bi464ikp.c-5.ap-southeast-1.aws.neon.tech/supermarket?sslmode=require&channel_binding=require",
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '0y2t8v-tfmm53#3p3+wj%5k%the4@wttp(*q8*$t^aaoi9%2j7')
@@ -89,19 +89,44 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+# # Database
+# # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'supermarket'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME', 'supermarket'),
+#         'USER': os.getenv('DB_USER', 'postgres'),
+#         'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
+#         'HOST': os.getenv('DB_HOST', 'localhost'),
+#         'PORT': os.getenv('DB_PORT', '5432'),
+#     }
+# }
+
+
+# Database Configuration - Neon PostgreSQL / Local PostgreSQL
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME', 'supermarket'),
+            'USER': os.getenv('DB_USER', 'postgres'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
 
 
 # Password validation
